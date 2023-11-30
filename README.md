@@ -1,2 +1,3 @@
 # verk5-vidmot
-Lokaverkefni í viðmótsforritun 2023 (35%)
+
+Ég var með Hugmynd um að teikna 3D hluti á Sveiflusjá og getað stjórnað þeim með handahreyfingum (Mediapipe hand gestures t.d) en eftir að skoða þetta betur er ansi erfitt að 
