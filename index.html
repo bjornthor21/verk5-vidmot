@@ -24,7 +24,6 @@
         let runningMode = 'IMAGE';
         let enableWebcamButton;
         let webcamRunning = false;
-        let vector;
         const videoWidth = window.screen.width;
         const videoHeight = window.screen.height;
 
@@ -134,9 +133,6 @@
           const camera = new THREE.PerspectiveCamera();
           camera.matrixAutoUpdate = false;
 
-          vector = new THREE.Vector3();
-          camera.getWorldDirection( vector );
-
           const loader = new THREE.GLTFLoader();
 
           loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
@@ -174,16 +170,19 @@
               renderer.render(scene, camera);
             }
 
-            if (model && gestureOutput.innerText == "Open_Palm") {
-                model.position.copy(camera.position);
-                model.visible = true;
-            }
-
-            if (model && model.visible) {
+            if (model && model.visible && gestureOutput.innerText == "Closed_Fist") {
                 model.position.x += 0.5; 
                 model.rotation.x += 2;
                 model.rotation.y += 2;
             }
+
+            if (model && gestureOutput.innerText == "Open_Palm") {
+                model.position.copy(camera.position);
+                model.visible = true;
+            }
+            var vector = new THREE.Vector3();
+            camera.getWorldDirection(vector);
+
 
             console.log(vector)
         };
