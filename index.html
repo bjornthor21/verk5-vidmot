@@ -164,7 +164,7 @@
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
-        let shootSpeed = 10;
+        let shootSpeed = 5;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
@@ -184,6 +184,8 @@
               renderer.render(scene, camera);
             }
 
+            camera.getWorldDirection(shootDirection);
+
             if (model && model.visible && gestureOutput.innerText == "Closed_Fist") {
               model.position.add(velocity);
               model.rotation.x += 1;
@@ -194,11 +196,6 @@
                 model.position.copy(camera.position);
                 model.visible = true;
             }
-            let vector = new THREE.Vector3();
-            camera.getWorldDirection(vector);
-
-
-            console.log(vector)
         };
 
           session.requestAnimationFrame(onXRFrame);
