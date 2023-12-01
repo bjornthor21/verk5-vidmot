@@ -119,6 +119,17 @@
             }
         }
 
+        const loader = new THREE.GLTFLoader();
+
+        let model;
+        loader.load("fireball.glb", function(gltf) {
+          model = gltf.scene;
+        });
+
+        if(model){
+          model.position.set(1, 1, 1);
+          scene.add(model)
+        };
 
         async function activateXR() {
           const canvas = canvasElement;
@@ -170,6 +181,8 @@
               camera.matrix.fromArray(view.transform.matrix);
               camera.projectionMatrix.fromArray(view.projectionMatrix);
               camera.updateMatrixWorld(true);
+
+            cube.position.copy(camera.position);
 
             if(gestureOutput.innerText == "Open_Palm"){
               cube.position.set(1, 1, 1)
