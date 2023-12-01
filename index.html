@@ -144,12 +144,6 @@
           console.error('An error happened with the GLTF loader:', error);
           });
 
-          if(model){
-            model.position.set(1, 1, 1);
-            console.log("model loaded")
-            scene.add(model);
-          };
-
           const session = await navigator.xr.requestSession("immersive-ar");
           session.updateRenderState({
             baseLayer: new XRWebGLLayer(session, gl)
@@ -180,7 +174,7 @@
             }
 
             if(model.visible){
-              model.position.x += 1; 
+              model.position.x += 0.5; 
               model.rotation.x += 2;
               model.rotation.y += 2;
             }
