@@ -122,10 +122,10 @@
         const loader = new THREE.GLTFLoader();
 
         let model;
-        loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
-        model = gltf.scene;
-        scene.add(model);
-      }, undefined, function(error) {
+        loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf.glb", function(gltf) {
+          model = gltf.scene;
+          scene.add(model);
+        }, undefined, function(error) {
         console.error('An error happened with the GLTF loader:', error);
       });
 
