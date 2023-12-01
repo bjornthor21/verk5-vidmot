@@ -139,6 +139,9 @@
           cube.position.set(0, 0, 0);
           scene.add(cube);
 
+          const axesHelper = new THREE.AxesHelper( 5 );
+          scene.add( axesHelper );
+
           const renderer = new THREE.WebGLRenderer({
             alpha: true,
             preserveDrawingBuffer: true,
