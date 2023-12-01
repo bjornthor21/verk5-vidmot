@@ -163,11 +163,11 @@
         const referenceSpace = await session.requestReferenceSpace('local');
 
         session.addEventListener("clone", (event) => {
-        // if (cube) {
-        //     // const clone = cube.clone();
-        //     // clone.position(2, 1, 1);
-        //     // scene.add(clone);
-        // }
+          if (cube) {
+              const clone = cube.clone();
+              clone.position(2, 1, 1);
+              scene.add(clone);
+          }
         });
 
           const onXRFrame = (time, frame) => {
