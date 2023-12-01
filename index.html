@@ -144,14 +144,28 @@
           console.error('An error happened with the GLTF loader:', error);
           });
 
-
-
           const session = await navigator.xr.requestSession("immersive-ar");
           session.updateRenderState({
             baseLayer: new XRWebGLLayer(session, gl)
           });
 
         const referenceSpace = await session.requestReferenceSpace('local');
+
+        function positionModel(camera, model, distance) {
+          let direction = new THREE.Vector3();
+          camera.getWorldDirection(direction);
+          let newPosition = new THREE.Vector3();
+          newPosition.copy(camera.position);
+          newPosition.add(direction.multiplyScalar(distance));
+          model.position.copy(newPosition);
+        }
+
+        positionModel(camera, model, -5); // Model starts 5 units behind the camera
+
+        let shootDirection = new THREE.Vector3();
+        camera.getWorldDirection(shootDirection);
+        let shootSpeed = 10;
+        let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
             session.requestAnimationFrame(onXRFrame);
@@ -171,16 +185,16 @@
             }
 
             if (model && model.visible && gestureOutput.innerText == "Closed_Fist") {
-                model.position.x += 0.5; 
-                model.rotation.x += 2;
-                model.rotation.y += 2;
+              model.position.add(velocity);
+              model.rotation.x += 1;
+              model.rotation.y += 1;
             }
 
             if (model && gestureOutput.innerText == "Open_Palm") {
                 model.position.copy(camera.position);
                 model.visible = true;
             }
-            var vector = new THREE.Vector3();
+            let vector = new THREE.Vector3();
             camera.getWorldDirection(vector);
 
 
