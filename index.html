@@ -122,9 +122,12 @@
         const loader = new THREE.GLTFLoader();
 
         let model;
-        loader.load("fireball.glb", function(gltf) {
-          model = gltf.scene;
-        });
+        loader.load("https://github.com/bjornthor21/verk5-vidmot/blob/main/fireball.glb", function(gltf) {
+        model = gltf.scene;
+        scene.add(model);
+      }, undefined, function(error) {
+        console.error('An error happened with the GLTF loader:', error);
+      });
 
         if(model){
           model.position.set(1, 1, 1);
