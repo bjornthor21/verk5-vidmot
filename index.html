@@ -119,22 +119,6 @@
             }
         }
 
-        const loader = new THREE.GLTFLoader();
-
-        let model;
-        loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function(gltf) {
-          model = gltf.scene;
-          scene.add(model);
-        }, undefined, function(error) {
-        console.error('An error happened with the GLTF loader:', error);
-      });
-
-        if(model){
-          model.position.set(1, 1, 1);
-          console.log("model loaded")
-          scene.add(model);
-        };
-
         async function activateXR() {
           const canvas = canvasElement;
           const gl = canvas.getContext("webgl", {xrCompatible: true});;
@@ -151,6 +135,22 @@
 
           const camera = new THREE.PerspectiveCamera();
           camera.matrixAutoUpdate = false;
+
+          const loader = new THREE.GLTFLoader();
+
+          let model;
+          loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function(gltf) {
+            model = gltf.scene;
+            scene.add(model);
+          }, undefined, function(error) {
+          console.error('An error happened with the GLTF loader:', error);
+          });
+
+          if(model){
+            model.position.set(1, 1, 1);
+            console.log("model loaded")
+            scene.add(model);
+          };
 
           const materials = [
             new THREE.MeshBasicMaterial({color: 0xff0000}),
