@@ -141,7 +141,7 @@
           let model;
           loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
             model = gltf.scene;
-            model.scale.set(0.05, 0.05, 0.05); // Adjust these values as needed
+            model.scale.set(0.01, 0.01, 0.01); // Adjust these values as needed
             scene.add(model);
           }, undefined, function(error) {
           console.error('An error happened with the GLTF loader:', error);
