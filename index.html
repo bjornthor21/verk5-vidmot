@@ -133,6 +133,11 @@
           const camera = new THREE.PerspectiveCamera();
           camera.matrixAutoUpdate = false;
 
+          var vector = new THREE.Vector3(); // create once and reuse it!
+          camera.getWorldDirection( vector );
+
+          console.log(vector)
+
           const loader = new THREE.GLTFLoader();
 
           loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
@@ -143,6 +148,8 @@
           }, undefined, function(error) {
           console.error('An error happened with the GLTF loader:', error);
           });
+
+
 
           const session = await navigator.xr.requestSession("immersive-ar");
           session.updateRenderState({
