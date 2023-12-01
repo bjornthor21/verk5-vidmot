@@ -47,10 +47,10 @@
         const yOutput = document.getElementById('y_output');
 
         enableWebcamButton = document.getElementById('webcamButton');
-        enableWebcamButton.addEventListener('touchstart', () => {
-          enableCam();
-          activateXR();
-        });
+        // enableWebcamButton.addEventListener('touchstart', () => {
+        //   enableCam();
+        //   activateXR();
+        // });
 
         enableWebcamButton.addEventListener('click', () => {
           enableCam();
@@ -136,7 +136,7 @@
           ];
 
           const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(0.2, 0.2, 0.2), materials);
-          cube.position.set(1, 1, 1);
+          cube.position.set(0, 0, 0);
           scene.add(cube);
 
           const renderer = new THREE.WebGLRenderer({
@@ -170,13 +170,6 @@
               camera.matrix.fromArray(view.transform.matrix);
               camera.projectionMatrix.fromArray(view.projectionMatrix);
               camera.updateMatrixWorld(true);
-            
-            if(gestureOutput.innerText == "Thumb_Up"){
-              const clone = cube.clone();
-              clone.position(2, 1, 1);
-              scene.add(clone);
-              conosle.log("clone added")
-            }
 
             if(gestureOutput.innerText == "Victory"){
               cube.rotation.x += 0.05;
