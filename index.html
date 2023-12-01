@@ -45,12 +45,9 @@
         const gestureOutput = document.getElementById('gesture_output');
         const xOutput = document.getElementById('x_output');
         const yOutput = document.getElementById('y_output');
+        let model;
 
         enableWebcamButton = document.getElementById('webcamButton');
-        // enableWebcamButton.addEventListener('touchstart', () => {
-        //   enableCam();
-        //   activateXR();
-        // });
 
         enableWebcamButton.addEventListener('click', () => {
           enableCam();
@@ -138,10 +135,10 @@
 
           const loader = new THREE.GLTFLoader();
 
-          let model;
           loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
             model = gltf.scene;
             model.scale.set(0.01, 0.01, 0.01); // Adjust these values as needed
+            model.visible = false;
             scene.add(model);
           }, undefined, function(error) {
           console.error('An error happened with the GLTF loader:', error);
@@ -175,6 +172,17 @@
               camera.updateMatrixWorld(true);
 
               renderer.render(scene, camera);
+            }
+
+            if(gestureOutput.innerText == "Open_Palm"){
+              model.position.copy(camera.position);
+              model.visible = true;
+            }
+
+            if(model.visible){
+              model.position.x += 1; 
+              model.rotation.x += 2;
+              model.rotation.y += 2;
             }
           };
 
