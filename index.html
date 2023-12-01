@@ -168,17 +168,17 @@
               renderer.render(scene, camera);
             }
 
-            if(gestureOutput.innerText == "Open_Palm"){
-              model.position.copy(camera.position);
-              model.visible = true;
+            if (model && gestureOutput.innerText == "Open_Palm") {
+                model.position.copy(camera.position);
+                model.visible = true;
             }
 
-            if(model.visible){
-              model.position.x += 0.5; 
-              model.rotation.x += 2;
-              model.rotation.y += 2;
+            if (model && model.visible) {
+                model.position.x += 0.5; 
+                model.rotation.x += 2;
+                model.rotation.y += 2;
             }
-          };
+        };
 
           session.requestAnimationFrame(onXRFrame);
         }
