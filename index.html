@@ -186,17 +186,17 @@
 
             camera.getWorldDirection(shootDirection);
 
-            if (model && model.visible && gestureOutput.innerText == "Closed_Fist") {
+            if (model && model.visible && gestureOutput.innerText == "Open_Palm") {
               model.position.add(velocity);
               model.rotation.x += 1;
               model.rotation.y += 1;
-              if(model.position.x > 30 || model.position.y > 30){
+              if(model.rotation.x > 30 || model.rotation.y > 30){
                 console.log("hello")
                 model.visible = false;
               }
             }
 
-            if (model && gestureOutput.innerText == "Open_Palm") {
+            if (model && gestureOutput.innerText == "Closed_Fist") {
                 model.position.copy(camera.position);
                 model.visible = true;
             }
