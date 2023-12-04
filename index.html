@@ -160,7 +160,7 @@
           model.position.copy(newPosition);
         }
 
-        positionModel(camera, model, -5); // Model starts 5 units behind the camera
+        positionModel(camera, model, -0.5); // Model starts 5 units behind the camera
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
@@ -193,7 +193,7 @@
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
-                positionModel(camera, model, -5);
+                positionModel(camera, model, -0.5);
                 model.visible = true;
             }
         };
