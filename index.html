@@ -45,6 +45,8 @@
         const gestureOutput = document.getElementById('gesture_output');
         const xOutput = document.getElementById('x_output');
         const yOutput = document.getElementById('y_output');
+        let lastVideoTime = -1;
+        let results = undefined;
         let model;
 
         enableWebcamButton = document.getElementById('webcamButton');
@@ -81,8 +83,6 @@
               alert("An error occurred: " + err);
           });
       }
-        let lastVideoTime = -1;
-        let results = undefined;
 
         async function predictWebcam() {
             const webcamElement = document.getElementById('webcam');
@@ -160,11 +160,11 @@
           model.position.copy(newPosition);
         }
 
-        positionModel(camera, model, -0.5); // Model starts 5 units behind the camera
+        positionModel(camera, model, -0.5);
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
-        let shootSpeed = 1;
+        let shootSpeed = 0.5;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
@@ -190,6 +190,9 @@
               model.position.add(velocity);
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
+              shootDirection = new THREE.Vector3();
+              shootDirection.x += results.landmarks[0][0].x;
+              shootDirection.y += results.landmarks[0][0].y;
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
