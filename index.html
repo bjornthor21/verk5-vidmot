@@ -188,7 +188,8 @@
 
             if (model && gestureOutput.innerText == "Open_Palm") {
               model.visible = true;
-              model.position.add(velocity);
+              // model.position.add(velocity);
+              positionModel(camera, model, 2)
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
               shootDirection.x += results.landmarks[0][0].x * 10;
