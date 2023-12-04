@@ -164,7 +164,7 @@
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
-        let shootSpeed = 5;
+        let shootSpeed = 1;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
