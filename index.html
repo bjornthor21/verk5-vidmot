@@ -160,11 +160,11 @@
           model.position.copy(newPosition);
         }
 
-        positionModel(camera, model, -0.5);
+        positionModel(camera, model, -0.1);
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
-        let shootSpeed = 0.5;
+        let shootSpeed = 0.1;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
@@ -186,18 +186,18 @@
 
             camera.getWorldDirection(shootDirection);
 
-            if (model && model.visible && gestureOutput.innerText == "Open_Palm") {
+            if (model && gestureOutput.innerText == "Open_Palm") {
+              model.visible = true;
               model.position.add(velocity);
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
-              console.log(results.landmarks[0][0].x * 10)
-              shootDirection.x += results.landmarks[0][0].x;
-              shootDirection.y += results.landmarks[0][0].y;
+              shootDirection.x += results.landmarks[0][0].x * 10;
+              shootDirection.y += results.landmarks[0][0].y * 10;
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
                 positionModel(camera, model, -0.5);
-                model.visible = true;
+                model.visible = false;
             }
         };
 
