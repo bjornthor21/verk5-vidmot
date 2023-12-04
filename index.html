@@ -193,11 +193,12 @@
               if(model.rotation.x > 30 || model.rotation.y > 30){
                 console.log("hello")
                 model.visible = false;
+                positionModel(camera, model, -5); 
               }
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
-                model.position.copy(camera.position);
+                positionModel(camera, model, -5); 
                 model.visible = true;
             }
         };
