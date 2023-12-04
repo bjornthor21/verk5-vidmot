@@ -192,8 +192,8 @@
               positionModel(camera, model, 2)
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
-              model.position.x += results.landmarks[0][0].x * 10;
-              model.position.y += results.landmarks[0][0].y * 10;
+              model.position.x += results.landmarks[0][0].x;
+              model.position.y += results.landmarks[0][0].y;
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
