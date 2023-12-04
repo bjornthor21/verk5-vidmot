@@ -190,7 +190,10 @@
               model.position.add(velocity);
               model.rotation.x += 1;
               model.rotation.y += 1;
-              if(model.position.x > 30 || model.position.y > 30) model.visible = false;
+              if(model.position.x > 30 || model.position.y > 30){
+                console.log("hello")
+                model.visible = false;
+              }
             }
 
             if (model && gestureOutput.innerText == "Open_Palm") {
