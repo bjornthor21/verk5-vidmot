@@ -220,8 +220,7 @@
 
             camera.getWorldDirection(shootDirection);
 
-            if (model && gestureOutput.innerText == "Open_Palm") {
-              model.visible = true;
+            if (model && model.visible && gestureOutput.innerText == "Open_Palm") {
               model.position.add(velocity);
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
@@ -230,14 +229,15 @@
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
                   controlPosition(handX, handY);
+                  if(model.position.z >= 20 || model.position.z <= -20){
+                    model.visible = false
+                  }
               }
-              console.log(shootDirection);
-              console.log(model.position);
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
                 positionModel(camera, model, -0.05);
-                model.visible = false;
+                model.visible = true;
             }
         };
 
