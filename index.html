@@ -162,6 +162,10 @@
 
         positionModel(camera, model, -0.05);
 
+
+        let modelScaleFactorX = 1.0; // This could be the width of your scene
+        let modelScaleFactorY = 1.0; // This could be the height of your scene
+        
         function controlPosition(handX, handY) {
           // Normalize and map the coordinates
           let normalizedX = (handX - 0.5) * 2;
