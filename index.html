@@ -163,18 +163,24 @@
         positionModel(camera, model, -0.05);
 
         function controlPosition(handX, handY) {
-          // Normalize the hand coordinates (assuming they are between 0 and 1)
-          let normalizedX = (handX - 0.5) * 2; // Now between -1 and 1
-          let normalizedY = (handY - 0.5) * 2; // Now between -1 and 1
+          // Normalize and map the coordinates
+          let normalizedX = (handX - 0.5) * 2;
+          let normalizedY = (handY - 0.5) * 2;
 
-          // Map these normalized coordinates to your 3D space
-          // Adjust these multipliers based on your 3D scene scale
+          // Adjust for any inversion in the y-axis
+          normalizedY = -normalizedY;
+
+          // Apply scaling factors (tune these values)
           let modelX = normalizedX * modelScaleFactorX;
           let modelY = normalizedY * modelScaleFactorY;
 
-          // Clamp the values to prevent excessive movement
+          // Clamp the values
           modelX = Math.max(minX, Math.min(maxX, modelX));
           modelY = Math.max(minY, Math.min(maxY, modelY));
+
+          // Debugging: Log the values to see the calculations
+          console.log(`HandX: ${handX}, HandY: ${handY}`);
+          console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
 
           // Update the model position
           model.position.x = modelX;
