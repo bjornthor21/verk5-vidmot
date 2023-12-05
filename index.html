@@ -171,7 +171,12 @@
         let maxX = 5.0;  // maximum x-coordinate
         let minY = -5.0; // minimum y-coordinate
         let maxY = 5.0;  // maximum y-coordinate
-        
+
+        let shootDirection = new THREE.Vector3();
+        camera.getWorldDirection(shootDirection);
+        let shootSpeed = 0.05;
+        let velocity = shootDirection.multiplyScalar(shootSpeed);
+
         function controlPosition(handX, handY) {
           // Normalize and map the coordinates
           let normalizedX = (handX - 0.5) * 2;
@@ -193,14 +198,9 @@
           console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
 
           // Update the model position
-          model.position.x = modelX;
-          model.position.y = modelY;
+          shootDirection.x = modelX;
+          shootDirection.y = modelY;
         }
-
-        let shootDirection = new THREE.Vector3();
-        camera.getWorldDirection(shootDirection);
-        let shootSpeed = 0.05;
-        let velocity = shootDirection.multiplyScalar(shootSpeed);
 
           const onXRFrame = (time, frame) => {
             session.requestAnimationFrame(onXRFrame);
@@ -241,6 +241,7 @@
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
                   controlPosition(handX, handY);
+                  camera.getWorldDirection(shootDirection);
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
