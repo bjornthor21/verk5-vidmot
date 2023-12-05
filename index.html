@@ -192,7 +192,9 @@
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
               model.position.x -= results.landmarks[0][0].x;
-              model.position.y += results.landmarks[0][0].y;
+              model.position.y -= results.landmarks[0][0].y;
+              console.log(shootDirection);
+              console.log(model.position);
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
