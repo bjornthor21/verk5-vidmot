@@ -162,7 +162,7 @@
 
         positionModel(camera, model, -0.05);
 
-        function updateModelPosition(handX, handY) {
+        function controlPosition(handX, handY) {
           // Normalize the hand coordinates (assuming they are between 0 and 1)
           let normalizedX = (handX - 0.5) * 2; // Now between -1 and 1
           let normalizedY = (handY - 0.5) * 2; // Now between -1 and 1
@@ -207,14 +207,15 @@
 
             if (model && gestureOutput.innerText == "Open_Palm") {
               model.visible = true;
-              model.position.add(velocity);
+              // model.position.add(velocity);
+              positionModel(camera, model, 2);
               model.rotation.x += 0.5;
               model.rotation.y += 0.5;
               if (results.gestures.length > 0) {
                 let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
-                  updateModelPosition(handX, handY);
+                  controlPosition(handX, handY);
               }
               console.log(shootDirection);
               console.log(model.position);
