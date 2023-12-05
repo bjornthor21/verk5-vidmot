@@ -160,7 +160,7 @@
           model.position.copy(newPosition);
         }
 
-        positionModel(camera, model, -0.1);
+        positionModel(camera, model, -0.05);
 
         let shootDirection = new THREE.Vector3();
         camera.getWorldDirection(shootDirection);
@@ -196,7 +196,7 @@
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
-                positionModel(camera, model, -0.5);
+                positionModel(camera, model, -0.05);
                 model.visible = false;
             }
         };
