@@ -178,28 +178,21 @@
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
         function controlPosition(handX, handY) {
-          // Normalize and map the coordinates
+          // Normalíserar
           let normalizedX = (handX - 0.5) * 2;
           let normalizedY = (handY - 0.5) * 2;
-
-          // Adjust for any inversion in the y-axis
           normalizedY = -normalizedY;
-
-          // Apply scaling factors (tune these values)
           let modelX = normalizedX * modelScaleFactorX * -1;
           let modelY = normalizedY * modelScaleFactorY;
 
-          // Clamp the values
           modelX = Math.max(minX, Math.min(maxX, modelX));
           modelY = Math.max(minY, Math.min(maxY, modelY));
 
-          // Debugging: Log the values to see the calculations
           console.log(`HandX: ${handX}, HandY: ${handY}`);
           console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
 
-          // Update the model position
-          shootDirection.x = modelX;
-          shootDirection.y = modelY;
+          model.position.x = modelX;
+          model.position.y = modelY;
         }
 
           const onXRFrame = (time, frame) => {
@@ -241,7 +234,6 @@
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
                   controlPosition(handX, handY);
-                  camera.getWorldDirection(shootDirection);
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
