@@ -181,7 +181,7 @@
 
           // Apply scaling factors (tune these values)
           let modelX = normalizedX * modelScaleFactorX * -1;
-          let modelY = normalizedY * modelScaleFactorY * -1;
+          let modelY = normalizedY * modelScaleFactorY;
 
           // Clamp the values
           modelX = Math.max(minX, Math.min(maxX, modelX));
