@@ -15,10 +15,9 @@
 
         let camera, scene, renderer;
         let cube, cubeMesh;
-        let trackedImage;
-
+        
         const img = document.getElementById('img');
-        const imgBitmap = await createImageBitmap(img);
+        const trackedImage = await createImageBitmap(img);
 
         let referenceSpace;
 
