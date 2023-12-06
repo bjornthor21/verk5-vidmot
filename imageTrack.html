@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>WebXR image tracking</title>
-    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-    <script type="application/javascript" defer> </script>
+    <title>AR</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Quicksand);
+        body .dg.main .close-button {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
-    <canvas class="webgl"></canvas>
-    <img id='img' src='/verk5-vidmot/Hiro_marker.png' alt='flower' style='display: none;'/>
-    <div id='console-ui'></div>
+    
+  <img id='bitmap' style='display:none;' src = "/earth.jpeg">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="webxrMarker.js" >
+  </script>
 </body>
 </html>
