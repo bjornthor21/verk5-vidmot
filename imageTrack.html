@@ -2,91 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AR Image Tracking Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>WebXR image tracking</title>
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script type="application/javascript" defer> </script>
 </head>
 <body>
-    <script type="module">
-        import * as THREE from 'https://threejs.org/build/three.module.js';
-        import { ARButton } from 'https://threejs.org/examples/jsm/webxr/ARButton.js';
-
-        async function main() {
-            let camera, scene, renderer;
-            let cube, cubeMesh;
-            
-            // Load the image for tracking
-            const img = new Image();
-            img.src = 'https://bjornthor21.github.io/verk5-vidmot/Hiro_marker.png';
-            await img.decode();
-            const trackedImage = await createImageBitmap(img);
-
-            let referenceSpace;
-
-            // Initialize scene, camera, and renderer
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.xr.enabled = true;
-            document.body.appendChild(renderer.domElement);
-
-            // Create a cube
-            const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-            cubeMesh = new THREE.Mesh(geometry, material);
-
-            // Setup ARButton with image tracking
-            const button = ARButton.createButton(renderer, {
-                requiredFeatures: ['image-tracking'],
-                trackedImages: [{ image: trackedImage, widthInMeters: 0.2 }]
-            });
-            button.style.backgroundColor = "black";
-            document.body.appendChild(button);
-
-            renderer.xr.addEventListener('sessionstart', async () => {
-                const session = renderer.xr.getSession();
-                referenceSpace = await session.requestReferenceSpace('local');
-
-                const scores = await session.getTrackedImageScores();
-                for (let index = 0; index < scores.length; ++index) {
-                    if (scores[index] == 'untrackable') {
-                        console.warn("Untrackable Image at index:", index);
-                    }
-                }
-            });
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-
-            function animate() {
-                renderer.setAnimationLoop(render);
-            }
-
-            function render(timestamp, frame) {
-                if (frame) {
-                    const results = frame.getImageTrackingResults();
-                    for (const result of results) {
-                        if (result.trackingState === "tracked") {
-                            const pose = frame.getPose(result.imageSpace, referenceSpace);
-                            if (!cube) {
-                                cube = cubeMesh.clone();
-                                scene.add(cube);
-                            }
-                            cube.position.set(pose.transform.position.x, pose.transform.position.y, pose.transform.position.z);
-                            cube.quaternion.set(pose.transform.orientation.x, pose.transform.orientation.y, pose.transform.orientation.z, pose.transform.orientation.w);
-                        }
-                    }
-                }
-                renderer.render(scene, camera);
-            }
-
-            animate();
-        }
-
-        main().catch(console.error);
-    </script>
+    <canvas class="webgl"></canvas>
+    <img id='img' src='/flower.jpeg' alt='flower' style='display: none;'/>
+    <img id='imgBird' src='/bird.jpeg' alt='box' style='display: none;'/>
+    <div id='console-ui'></div>
 </body>
 </html>
