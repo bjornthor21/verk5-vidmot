@@ -177,7 +177,7 @@
         let shootSpeed = 0.05;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
-        function controlPosition(handX, handY) {
+        function controlPosition(handX, handY, direction) {
           // Normalíserar
           let normalizedX = (handX - 0.5) * 2;
           let normalizedY = (handY - 0.5) * 2;
@@ -193,6 +193,7 @@
 
           model.position.x = modelX;
           model.position.y = modelY;
+          shootDirection.add(model.position);
         }
 
           const onXRFrame = (time, frame) => {
@@ -233,7 +234,7 @@
                 let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
-                  controlPosition(handX, handY);
+                  controlPosition(handX, handY ,shootDirection);
             }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
