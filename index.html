@@ -176,23 +176,36 @@
         let shootSpeed = 0.05;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
+        const lateralMovementFactor = 0.1;
+        const verticalMovementFactor = 0.1;
+
         function controlPosition(handX, handY) {
-          // Normalíserar
-          let normalizedX = (handX - 0.5) * 2;
-          let normalizedY = (handY - 0.5) * 2;
-          normalizedY = -normalizedY;
-          let modelX = normalizedX * modelScaleFactorX * -1;
-          let modelY = normalizedY * modelScaleFactorY;
+    
+          let xOffset = (handX - 0.5) * 2 * lateralMovementFactor; // lateralMovementFactor controls how much the hand position affects lateral movement
+          let yOffset = (handY - 0.5) * 2 * verticalMovementFactor; // verticalMovementFactor controls how much the hand position affects vertical movement
 
-          modelX = Math.max(minX, Math.min(maxX, modelX));
-          modelY = Math.max(minY, Math.min(maxY, modelY));
-
-          console.log(`HandX: ${handX}, HandY: ${handY}`);
-          console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
-
-          model.position.x = modelX;
-          model.position.y = modelY;
+    
+            model.position.x += xOffset;
+            model.position.y += yOffset;
         }
+
+        // function controlPosition(handX, handY) {
+        //   // Normalíserar
+        //   let normalizedX = (handX - 0.5) * 2;
+        //   let normalizedY = (handY - 0.5) * 2;
+        //   normalizedY = -normalizedY;
+        //   let modelX = normalizedX * modelScaleFactorX * -1;
+        //   let modelY = normalizedY * modelScaleFactorY;
+
+        //   modelX = Math.max(minX, Math.min(maxX, modelX));
+        //   modelY = Math.max(minY, Math.min(maxY, modelY));
+
+        //   console.log(`HandX: ${handX}, HandY: ${handY}`);
+        //   console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
+
+        //   model.position.x = modelX;
+        //   model.position.y = modelY;
+        // }
 
         function updateShootingDirection() {
             camera.getWorldDirection(shootDirection);
@@ -224,19 +237,19 @@
                   model.position.add(velocity);
                   model.rotation.x += 0.5;
                   model.rotation.y += 0.5;
-                  if(model.position.z >= 20 || model.position.z <= -20) {
-                      model.visible = false;
-                      isShot = false;
-                  }
+
+                if (results.gestures.length > 0) {
+                  let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
+                  let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
+                  controlPosition(handX, handY);
+                }
+
+                if(model.position.z >= 20 || model.position.z <= -20) {
+                    model.visible = false;
+                    isShot = false;
+                }
               }
               renderer.render(scene, camera);
-          }
-
-          if (results.gestures.length > 0) {
-              let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
-              let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
-
-                controlPosition(handX, handY);
           }
 
           console.log(shootDirection);
