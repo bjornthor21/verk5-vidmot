@@ -181,9 +181,7 @@
           // Normalíserar
           let normalizedX = (handX - 0.5) * 2;
           let normalizedY = (handY - 0.5) * 2;
-
           normalizedY = -normalizedY;
-
           let modelX = normalizedX * modelScaleFactorX * -1;
           let modelY = normalizedY * modelScaleFactorY;
 
@@ -192,9 +190,14 @@
 
           console.log(`HandX: ${handX}, HandY: ${handY}`);
           console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
-          
-          shootDirection.x.add(modelX);
-          shootDirection.y.add(modelY);
+
+          model.position.x = modelX;
+          model.position.y = modelY;
+        }
+
+        function updateShootingDirection() {
+            camera.getWorldDirection(shootDirection);
+            shootDirection.normalize();
         }
 
           const onXRFrame = (time, frame) => {
@@ -231,6 +234,8 @@
               }
             }
 
+            updateShootingDirection();
+
             if (results.gestures.length > 0) {
                 let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
                 let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
@@ -241,6 +246,8 @@
             if (model && gestureOutput.innerText == "Closed_Fist") {
                 positionModel(camera, model, -0.1);
             }
+
+            camera.getWorldDirection(shootDirection);
         };
 
           session.requestAnimationFrame(onXRFrame);
