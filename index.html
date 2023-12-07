@@ -173,7 +173,6 @@
         let maxY = 5.0;  // maximum y-coordinate
 
         let shootDirection = new THREE.Vector3();
-        // camera.getWorldDirection(shootDirection);
         let shootSpeed = 0.05;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
 
@@ -240,6 +239,7 @@
                 controlPosition(handX, handY);
           }
 
+          console.log(shootDirection);
           if (model && gestureOutput.innerText == "Closed_Fist") {
               positionModel(camera, model, -0.1);
           }
