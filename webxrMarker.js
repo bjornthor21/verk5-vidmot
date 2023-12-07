@@ -9,24 +9,18 @@ let clock = new THREE.Clock()
 
 // standard webxr scene
 
-function xwwwform(jsonObject){
-	return Object.keys(jsonObject).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(jsonObject[key])).join('&');
-}
+// function xwwwform(jsonObject){
+// 	return Object.keys(jsonObject).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(jsonObject[key])).join('&');
+// }
 
 let camera, scene, renderer, xrRefSpace, gl;
 
 scene = new THREE.Scene();
 
-const geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-const material = new THREE.MeshStandardMaterial( {color: 0x00ff00} );
-desktopCube = new THREE.Mesh( geometry, material );
-scene.add( desktopCube );
-desktopCube.position.z -= 0.5
-
 const geometry1 = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
 const material1 = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
 earthCube = new THREE.Mesh( geometry1, material1 );
-scene.add( earthCube );
+// scene.add( earthCube );
 
 
 var ambient = new THREE.AmbientLight( 0x222222 );
