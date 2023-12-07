@@ -181,7 +181,9 @@
           // Normalíserar
           let normalizedX = (handX - 0.5) * 2;
           let normalizedY = (handY - 0.5) * 2;
+
           normalizedY = -normalizedY;
+
           let modelX = normalizedX * modelScaleFactorX * -1;
           let modelY = normalizedY * modelScaleFactorY;
 
@@ -190,10 +192,9 @@
 
           console.log(`HandX: ${handX}, HandY: ${handY}`);
           console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
-
-          model.position.x = modelX;
-          model.position.y = modelY;
-          shootDirection.add(model.position);
+          
+          shootDirection.x.add(modelX);
+          shootDirection.y.add(modelY);
         }
 
           const onXRFrame = (time, frame) => {
