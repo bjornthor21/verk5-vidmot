@@ -206,42 +206,40 @@
 
             const pose = frame.getViewerPose(referenceSpace);
             if (pose) {
-              const view = pose.views[0];
-              const viewport = session.renderState.baseLayer.getViewport(view);
-              renderer.setSize(viewport.width, viewport.height);
+        const view = pose.views[0];
+        const viewport = session.renderState.baseLayer.getViewport(view);
+        renderer.setSize(viewport.width, viewport.height);
 
-              camera.matrix.fromArray(view.transform.matrix);
-              camera.projectionMatrix.fromArray(view.projectionMatrix);
-              camera.updateMatrixWorld(true);
+        camera.matrix.fromArray(view.transform.matrix);
+        camera.projectionMatrix.fromArray(view.projectionMatrix);
+        camera.updateMatrixWorld(true);
 
-              renderer.render(scene, camera);
-            }
+        updateShootingDirection(); // Update the shooting direction based on camera's orientation
 
-            camera.getWorldDirection(shootDirection);
+        if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
+            isShot = true;
+            model.visible = true;
+        }
 
-            if (model && gestureOutput.innerText == "Open_Palm") {
-              isShot = true;
-              model.visible = true;
-            }
-
-            if(isShot){
-              model.position.add(velocity);
-              model.rotation.x += 0.5;
-              model.rotation.y += 0.5;
-              if(model.position.z >= 20 || model.position.z <= -20){
+        if(isShot) {
+            model.position.add(velocity); // Move the model in the shooting direction
+            model.rotation.x += 0.5;
+            model.rotation.y += 0.5;
+            // Add any other effects, like rotation, here
+            if(model.position.z >= 20 || model.position.z <= -20) {
                 model.visible = false;
-                isShot = false;
-              }
+                isShot = false; // Reset shooting
             }
+        }
+        renderer.render(scene, camera);
+      }
 
-            updateShootingDirection();
+          if (results.gestures.length > 0) {
+              let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
+              let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
 
-            if (results.gestures.length > 0) {
-                let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
-                let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
-
-                  controlPosition(handX, handY ,shootDirection);
-            }
+                controlPosition(handX, handY ,shootDirection);
+          }
 
             if (model && gestureOutput.innerText == "Closed_Fist") {
                 positionModel(camera, model, -0.1);

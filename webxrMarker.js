@@ -17,9 +17,9 @@ let camera, scene, renderer, xrRefSpace, gl;
 
 scene = new THREE.Scene();
 
-const geometry1 = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
-const material1 = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
-earthCube = new THREE.Mesh( geometry1, material1 );
+const geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+const material = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
+earthCube = new THREE.Mesh( geometry, material );
 // scene.add( earthCube );
 
 
