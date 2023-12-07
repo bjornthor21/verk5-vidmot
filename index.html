@@ -181,8 +181,9 @@
 
         function controlPosition(handX, handY) {
     
-          let xOffset = (handX - 0.5) * 2 * lateralMovementFactor; // lateralMovementFactor controls how much the hand position affects lateral movement
-          let yOffset = (handY - 0.5) * 2 * verticalMovementFactor; // verticalMovementFactor controls how much the hand position affects vertical movement
+          let xOffset = (0.5 - handX) * 2 * lateralMovementFactor;
+          let yOffset = (0.5 - handY) * 2 * verticalMovementFactor;
+
 
     
             model.position.x += xOffset;
