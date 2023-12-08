@@ -9,9 +9,9 @@ let clock = new THREE.Clock()
 
 // standard webxr scene
 
-// function xwwwform(jsonObject){
-// 	return Object.keys(jsonObject).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(jsonObject[key])).join('&');
-// }
+function xwwwform(jsonObject){
+	return Object.keys(jsonObject).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(jsonObject[key])).join('&');
+}
 
 let camera, scene, renderer, xrRefSpace, gl;
 
