@@ -20,7 +20,7 @@ scene = new THREE.Scene();
 const geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
 const material = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
 earthCube = new THREE.Mesh( geometry, material );
-// scene.add( earthCube );
+scene.add( earthCube );
 
 
 var ambient = new THREE.AmbientLight( 0x222222 );
