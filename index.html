@@ -190,24 +190,6 @@
             model.position.y += yOffset;
         }
 
-        // function controlPosition(handX, handY) {
-        //   // Normalíserar
-        //   let normalizedX = (handX - 0.5) * 2;
-        //   let normalizedY = (handY - 0.5) * 2;
-        //   normalizedY = -normalizedY;
-        //   let modelX = normalizedX * modelScaleFactorX * -1;
-        //   let modelY = normalizedY * modelScaleFactorY;
-
-        //   modelX = Math.max(minX, Math.min(maxX, modelX));
-        //   modelY = Math.max(minY, Math.min(maxY, modelY));
-
-        //   console.log(`HandX: ${handX}, HandY: ${handY}`);
-        //   console.log(`ModelX: ${modelX}, ModelY: ${modelY}`);
-
-        //   model.position.x = modelX;
-        //   model.position.y = modelY;
-        // }
-
         function updateShootingDirection() {
             camera.getWorldDirection(shootDirection);
             shootDirection.normalize();
