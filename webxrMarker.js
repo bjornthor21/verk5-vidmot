@@ -1,142 +1,185 @@
-const img = document.getElementById('bitmap');
-let imgBitmap = null;
-
+const img  = document.getElementById('bitmap');
 // Ensure the image is loaded and ready for use
-createImageBitmap(img).then((x) => {
-  imgBitmap = x;
-  initialize();
-});
+var imgBitmap = null
+createImageBitmap(img).then(x=>{imgBitmap = x});
 
-let clock = new THREE.Clock();
+//   each frame send to socket.
+
+let clock = new THREE.Clock()
+
+// standard webxr scene
+
+function xwwwform(jsonObject){
+	return Object.keys(jsonObject).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(jsonObject[key])).join('&');
+}
+
 let camera, scene, renderer, xrRefSpace, gl;
-let gestureRecognizer;
-let runningMode = 'IMAGE';
-let enableWebcamButton;
-let webcamRunning = false;
-const videoWidth = window.screen.width;
-const videoHeight = window.screen.height;
 
-async function createGestureRecognizer() {
-  const vision = await FilesetResolver.forVisionTasks(
-    'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm'
-  );
-  gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath:
-        'https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task',
-      delegate: 'GPU',
-    },
-    runningMode: runningMode,
-  });
+scene = new THREE.Scene();
+
+const geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+const material = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
+earthCube = new THREE.Mesh( geometry, material );
+scene.add( earthCube );
+
+
+var ambient = new THREE.AmbientLight( 0x222222 );
+scene.add( ambient );
+var directionalLight = new THREE.DirectionalLight( 0xdddddd, 1.5 );
+directionalLight.position.set( 0.9, 1, 0.6 ).normalize();
+scene.add( directionalLight );
+var directionalLight2 = new THREE.DirectionalLight( 0xdddddd, 1 );
+directionalLight2.position.set( -0.9, -1, -0.4 ).normalize();
+scene.add( directionalLight2 );
+
+camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 20000 );
+renderer = new THREE.WebGLRenderer({antialias: true,alpha:true });
+renderer.setPixelRatio( window.devicePixelRatio );
+camera.aspect = window.innerWidth / window.innerHeight;
+renderer.setSize(window.innerWidth, window.innerHeight );
+camera.updateProjectionMatrix();
+document.body.appendChild( renderer.domElement );	
+renderer.xr.enabled = true;
+
+function init() {
+	window.addEventListener( 'resize', onWindowResize, false );
 }
 
-createGestureRecognizer();
+function getXRSessionInit( mode, options) {
+  	if ( options && options.referenceSpaceType ) {
+  		renderer.xr.setReferenceSpaceType( options.referenceSpaceType );
+  	}
+  	var space = (options || {}).referenceSpaceType || 'local-floor';
+  	var sessionInit = (options && options.sessionInit) || {};
+  
+  	// Nothing to do for default features.
+  	if ( space == 'viewer' )
+  		return sessionInit;
+  	if ( space == 'local' && mode.startsWith('immersive' ) )
+  		return sessionInit;
+  
+  	// If the user already specified the space as an optional or required feature, don't do anything.
+  	if ( sessionInit.optionalFeatures && sessionInit.optionalFeatures.includes(space) )
+  		return sessionInit;
+  	if ( sessionInit.requiredFeatures && sessionInit.requiredFeatures.includes(space) )
+  		return sessionInit;
+  
+  	var newInit = Object.assign( {}, sessionInit );
+  	newInit.requiredFeatures = [ space ];
+  	if ( sessionInit.requiredFeatures ) {
+  		newInit.requiredFeatures = newInit.requiredFeatures.concat( sessionInit.requiredFeatures );
+  	}
+  	return newInit;
+   }
 
-const video = document.getElementById('webcam');
-const canvasElement = document.getElementById('output_canvas');
-const gestureOutput = document.getElementById('gesture_output');
-const xOutput = document.getElementById('x_output');
-const yOutput = document.getElementById('y_output');
-let lastVideoTime = -1;
-let results = undefined;
-let model;
-let isShot = false;
-
-enableWebcamButton = document.getElementById('webcamButton');
-
-enableWebcamButton.addEventListener('click', () => {
-  enableCam();
-  activateXR();
-});
-
-function enableCam(event) {
-  if (!gestureRecognizer) {
-    alert('Please wait for gestureRecognizer to load');
-    return;
-  }
-  if (webcamRunning === true) {
-    webcamRunning = false;
-    return;
-  }
-  webcamRunning = true;
-
-  const constraints = {
-    video: {
-      facingMode: 'user',
-    },
-  };
-
-  navigator.mediaDevices
-    .getUserMedia(constraints)
-    .then(function (stream) {
-      video.srcObject = stream;
-      video.addEventListener('loadeddata', predictWebcam);
-    })
-    .catch(function (err) {
-      console.log('An error occurred: ' + err);
-      alert('An error occurred: ' + err);
-    });
+function AR(){
+	var currentSession = null;
+	function onSessionStarted( session ) {
+		session.addEventListener( 'end', onSessionEnded );
+		renderer.xr.setSession( session );
+		gl = renderer.getContext()
+		button.style.display = 'none';
+		button.textContent = 'EXIT AR';
+		currentSession = session;
+		session.requestReferenceSpace('local').then((refSpace) => {
+          xrRefSpace = refSpace;
+          session.requestAnimationFrame(onXRFrame);
+        });
+	}
+	function onSessionEnded( /*event*/ ) {
+		currentSession.removeEventListener( 'end', onSessionEnded );
+		renderer.xr.setSession( null );
+		button.textContent = 'ENTER AR' ;
+		currentSession = null;
+	}
+	if ( currentSession === null ) {
+		
+        let options = {
+            requiredFeatures: ['dom-overlay','image-tracking'],
+            trackedImages: [
+              {
+                image: imgBitmap,
+                widthInMeters: 0.2
+              }
+            ],
+            domOverlay: { root: document.body }
+        };
+		var sessionInit = getXRSessionInit( 'immersive-ar', {
+			mode: 'immersive-ar',
+			referenceSpaceType: 'local', // 'local-floor'
+			sessionInit: options
+		});
+		navigator.xr.requestSession( 'immersive-ar', sessionInit ).then( onSessionStarted );
+	} else {
+		currentSession.end();
+	}
+	renderer.xr.addEventListener('sessionstart',
+		function(ev) {
+			console.log('sessionstart', ev);
+			document.body.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+			renderer.domElement.style.display = 'none';
+		});
+	renderer.xr.addEventListener('sessionend',
+		function(ev) {
+			console.log('sessionend', ev);
+			document.body.style.backgroundColor = '';
+			renderer.domElement.style.display = '';
+		});
 }
 
-async function predictWebcam() {
-  const webcamElement = document.getElementById('webcam');
-  if (runningMode === 'IMAGE') {
-    runningMode = 'VIDEO';
-    await gestureRecognizer.setOptions({ runningMode: 'VIDEO' });
-  }
+function onXRFrame(t, frame) {
+    const session = frame.session;
+    session.requestAnimationFrame(onXRFrame);
+    const baseLayer = session.renderState.baseLayer;
+    const pose = frame.getViewerPose(xrRefSpace);
+	render()
+	if (pose) {
+		for (const view of pose.views) {
+            const viewport = baseLayer.getViewport(view);
+            gl.viewport(viewport.x, viewport.y,
+                        viewport.width, viewport.height);
+			const results = frame.getImageTrackingResults();
+			for (const result of results) {
+			  // The result's index is the image's position in the trackedImages array specified at session creation
+			  const imageIndex = result.index;
+			
+			  // Get the pose of the image relative to a reference space.
+			  const pose1 = frame.getPose(result.imageSpace, xrRefSpace);
+			  pos = pose1.transform.position
+			  quat = pose1.transform.orientation
 
-  let nowInMs = Date.now();
+			  earthCube.position.copy( pos.toJSON())
+			  earthCube.quaternion.copy(quat.toJSON())
+			  const state = result.trackingState;
+			
+			  if (state == "tracked") {
+				// HighlightImage(imageIndex, pose1);
+			  } else if (state == "emulated") {
+				// FadeImage(imageIndex, pose1);
+			  }
+			}
 
-  if (video.currentTime !== lastVideoTime) {
-    lastVideoTime = video.currentTime;
-    results = gestureRecognizer.recognizeForVideo(video, nowInMs);
-  }
 
-  if (results.gestures.length > 0) {
-    gestureOutput.style.display = 'block';
-    gestureOutput.style.width = videoWidth;
-    gestureOutput.innerText = results.gestures[0][0].categoryName;
+        }
+    }
 
-    parseFloat((xOutput.innerText = results.landmarks[0][0].x.toFixed(2)));
-    parseFloat((yOutput.innerText = results.landmarks[0][0].y.toFixed(2)));
-    console.log(gestureOutput.innerText);
-  } else {
-    gestureOutput.style.display = 'none';
-  }
-
-  if (webcamRunning === true) {
-    window.requestAnimationFrame(predictWebcam);
-  }
 }
-
-async function activateXR() {
-  // ... (the rest of your AR code)
-}
-
-// The remaining AR-related code remains unchanged.
-
-function initialize() {
-  window.addEventListener('resize', onWindowResize, false);
-  // Rest of your initialization code
-}
-
+init()
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize( window.innerWidth, window.innerHeight );
 }
-
+render()
 function render() {
-  renderer.render(scene, camera);
+	renderer.render( scene, camera );
 }
 
-var button = document.createElement('button');
-button.id = 'ArButton';
-button.textContent = 'ENTER AR';
-button.style.cssText += `position: absolute;top:80%;left:40%;width:20%;height:2rem;`;
 
-document.body.appendChild(button);
-
-document.getElementById('ArButton').addEventListener('click', (x) => AR());
-
-// Rest of your event listeners and functions
+var button = document.createElement( 'button' );
+button.id = 'ArButton'
+button.textContent = 'ENTER AR' ;
+button.style.cssText+= `position: absolute;top:80%;left:40%;width:20%;height:2rem;`;
+    
+document.body.appendChild(button)
+document.getElementById('ArButton').addEventListener('click',x=>AR())
