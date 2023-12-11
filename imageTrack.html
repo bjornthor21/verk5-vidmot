@@ -316,8 +316,11 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 let pos = pose1.transform.position
                 let quat = pose1.transform.orientation
 
-                model.position.copy( pos.toJSON())
-                model.quaternion.copy(quat.toJSON())
+                if(!ishot){
+                    model.position.copy( pos.toJSON())
+                    model.quaternion.copy(quat.toJSON())
+                }
+                
                 const state = result.trackingState;
                 
                 if (state == "tracked") {
