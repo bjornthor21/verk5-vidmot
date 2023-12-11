@@ -122,7 +122,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         }
     
     const img  = document.getElementById('bitmap');
-    var imgBitmap = null
+    let imgBitmap = null
     createImageBitmap(img).then(x=>{imgBitmap = x});
     let clock = new THREE.Clock()
 
@@ -136,17 +136,28 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
     scene = new THREE.Scene();
 
+    const loader = new THREE.GLTFLoader();
+
+    loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
+        model = gltf.scene;
+        model.scale.set(0.05, 0.05, 0.05);
+        model.visible = false;
+        scene.add(model);
+    }, undefined, function(error) {
+    console.error('An error happened with the GLTF loader:', error);
+    });
+
     const geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
     const material = new THREE.MeshStandardMaterial( {color: 0xcc6600} );
     let earthCube = new THREE.Mesh( geometry, material );
     scene.add( earthCube );
 
-    var ambient = new THREE.AmbientLight( 0x222222 );
+    let ambient = new THREE.AmbientLight( 0x222222 );
     scene.add( ambient );
-    var directionalLight = new THREE.DirectionalLight( 0xdddddd, 1.5 );
+    let directionalLight = new THREE.DirectionalLight( 0xdddddd, 1.5 );
     directionalLight.position.set( 0.9, 1, 0.6 ).normalize();
     scene.add( directionalLight );
-    var directionalLight2 = new THREE.DirectionalLight( 0xdddddd, 1 );
+    let directionalLight2 = new THREE.DirectionalLight( 0xdddddd, 1 );
     directionalLight2.position.set( -0.9, -1, -0.4 ).normalize();
     scene.add( directionalLight2 );
 
@@ -167,8 +178,8 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         if ( options && options.referenceSpaceType ) {
             renderer.xr.setReferenceSpaceType( options.referenceSpaceType );
         }
-        var space = (options || {}).referenceSpaceType || 'local-floor';
-        var sessionInit = (options && options.sessionInit) || {};
+        let space = (options || {}).referenceSpaceType || 'local-floor';
+        let sessionInit = (options && options.sessionInit) || {};
     
         // Nothing to do for default features.
         if ( space == 'viewer' )
@@ -182,7 +193,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         if ( sessionInit.requiredFeatures && sessionInit.requiredFeatures.includes(space) )
             return sessionInit;
     
-        var newInit = Object.assign( {}, sessionInit );
+        let newInit = Object.assign( {}, sessionInit );
         newInit.requiredFeatures = [ space ];
         if ( sessionInit.requiredFeatures ) {
             newInit.requiredFeatures = newInit.requiredFeatures.concat( sessionInit.requiredFeatures );
@@ -191,7 +202,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
     }
 
     function AR(){
-        var currentSession = null;
+        let currentSession = null;
         function onSessionStarted( session ) {
             session.addEventListener( 'end', onSessionEnded );
             renderer.xr.setSession( session );
@@ -219,7 +230,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 ],
                 domOverlay: { root: document.body }
             };
-            var sessionInit = getXRSessionInit( 'immersive-ar', {
+            let sessionInit = getXRSessionInit( 'immersive-ar', {
                 mode: 'immersive-ar',
                 referenceSpaceType: 'local', // 'local-floor'
                 sessionInit: options
@@ -263,8 +274,8 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 let pos = pose1.transform.position
                 let quat = pose1.transform.orientation
 
-                earthCube.position.copy( pos.toJSON())
-                earthCube.quaternion.copy(quat.toJSON())
+                model.position.copy( pos.toJSON())
+                model.quaternion.copy(quat.toJSON())
                 const state = result.trackingState;
                 
                 if (state == "tracked") {
@@ -272,11 +283,12 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 } else if (state == "emulated") {
                     // FadeImage(imageIndex, pose1);
                 }
+
+
                 }
-
-
             }
-        }
+            
+        } // if pose
 
     }
     init()
