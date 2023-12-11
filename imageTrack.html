@@ -141,7 +141,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
     loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
         model = gltf.scene;
         model.scale.set(0.05, 0.05, 0.05);
-        model.visible = false;
+        model.visible = true;
         scene.add(model);
     }, undefined, function(error) {
     console.error('An error happened with the GLTF loader:', error);
@@ -227,8 +227,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     image: imgBitmap,
                     widthInMeters: 0.2
                 }
-                ],
-                domOverlay: { root: document.body }
+                ]
             };
             let sessionInit = getXRSessionInit( 'immersive-ar', {
                 mode: 'immersive-ar',
