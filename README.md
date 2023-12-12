@@ -24,7 +24,7 @@ Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarte
 
 Þetta er gert með [Mediapipe](https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer) fyrir handgreiningu og [three.js](https://threejs.org/) fyrir AR Renderingu, Image Tracking og animation.
 
-### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) í síma og leita af WebXR Incubations og enable-a það.Sjá [Video](https://youtu.be/9LwTDKWC9G0?si=YVLsu_JO_gTwyd21&t=77) frá Grae n 
+### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) í síma og leita af WebXR Incubations og enable-a það. Sjá [Video](https://youtu.be/9LwTDKWC9G0?si=YVLsu_JO_gTwyd21&t=77) frá Grae n 
 
 #### Image Tracking
 Kóðinn fyrir Image Tracking í threejs fékk ég frá [Grae n](https://github.com/graemeniedermayer/ArExperiments) og hans verkefnum í AR.
