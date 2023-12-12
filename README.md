@@ -27,7 +27,7 @@ Kóðinn fyrir Image Tracking í threejs fékk frá [Grae n](https://github.com/
 
 Hér er kóðinn fyrir Image Tracking frá Grae n: [html](https://github.com/graemeniedermayer/ArExperiments/blob/main/html/webxrMarker.html) og [Javascript](https://github.com/graemeniedermayer/ArExperiments/blob/main/javascript/webxrMarker.js)
 
-### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) og setja
+### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) í síma og leita af WebXR Incubations og enable-a það.Sjá [Video](https://youtu.be/9LwTDKWC9G0?si=YVLsu_JO_gTwyd21&t=77) frá Grae n 
 
 
 
