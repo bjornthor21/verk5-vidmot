@@ -18,5 +18,16 @@ Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarte
 
 
 ## AR Fireball
-Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin sem skapaðist í samráði við kennara er að gera hálfgert spil þar sem AR
+Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin er að getað komið AR "Fireball" fyrir á spil og síðan kastað honum og stjórnað honum með hanfahreyfingum. 
+
+Þetta er gert með [Mediapipe](https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer) fyrir handgreiningu og [three.js](https://threejs.org/) fyrir AR Renderingu, Image Tracking og animation.
+
+#### Image Tracking
+Kóðinn fyrir Image Tracking í threejs fékk frá [Grae n](https://github.com/graemeniedermayer/ArExperiments) og hans verkefnum í AR.
+
+Hér er kóðinn fyrir Image Tracking frá Grae n: [html](https://github.com/graemeniedermayer/ArExperiments/blob/main/html/webxrMarker.html) og [Javascript](https://github.com/graemeniedermayer/ArExperiments/blob/main/javascript/webxrMarker.js)
+
+### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) og setja
+
+
 
