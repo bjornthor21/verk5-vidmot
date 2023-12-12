@@ -69,6 +69,9 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         const lateralMovementFactor = 0.5;
         const verticalMovementFactor = 0.5;
 
+        let pos;
+        let quat;
+
         enableWebcamButton = document.getElementById('webcamButton');
 
         enableWebcamButton.addEventListener('click', () => {
@@ -283,22 +286,23 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     
                     // Get the pose of the image relative to a reference space.
                     const pose1 = frame.getPose(result.imageSpace, xrRefSpace);
-                    let pos = pose1.transform.position
-                    let quat = pose1.transform.orientation
-
-                    if(model && !isShot && gestureOutput.innerText == "Closed_Fist"){
-                        model.visible = true;
-                        model.position.copy( pos.toJSON())
-                        model.quaternion.copy(quat.toJSON())
-            
-                        if (model && gestureOutput.innerText == "Open_Palm") {
-                            isShot = true;
-                        }
+                    pos = pose1.transform.position
+                    quat = pose1.transform.orientation
                     }
                 }
             }
 
             updateShootingDirection();
+
+            if(model && !isShot && gestureOutput.innerText == "Closed_Fist"){
+                model.visible = true;
+                model.position.copy( pos.toJSON())
+                model.quaternion.copy(quat.toJSON())
+                if (model && gestureOutput.innerText == "Open_Palm") {
+                    isShot = true;
+                }
+            }
+
 
             if(isShot) {
                 model.position.add(velocity);
@@ -319,8 +323,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
             renderer.render(scene, camera);
         } // if pose
-
-    }
     init()
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
