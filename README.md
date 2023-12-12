@@ -35,7 +35,10 @@ hér má sjá hvernig myndir það er best að velja fyrir image tracking [Creat
 
 #### Notkunar Leiðbeiningar
 Stundum er þetta smá leiðinlegt en þegar komið er á vefsíðu og ýta á takkan ætti Ar umhverfi að birtast. Ekki er lengur þörf á að ýta 2 sinnum á takkan.
-Eftir að búið er að koma upp AR umhverfinu og myndavélin byrjuð að sýna frá sér. beina myndavél að mynd. gera krepptan hnefa og þá birtist Fireball. Svo getur þú skotið með því að opna lófan. Þá skýst hluturinn af stað og á meðan hann er í loftinu þá geturu fært hendina til að stjórna boltanum.
+Eftir að búið er að koma upp AR umhverfinu og myndavélin byrjuð að sýna frá sér. beina myndavél að mynd (sjá mynd fyrir neðan). gera krepptan hnefa og þá birtist Fireball. Svo getur þú skotið með því að opna lófan. Þá skýst hluturinn af stað og á meðan hann er í loftinu þá geturu fært hendina til að stjórna boltanum.
+
+
+![](https://github.com/bjornthor21/verk5-vidmot/blob/main/firecard.png)
 
 
 
