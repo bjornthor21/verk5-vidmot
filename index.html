@@ -160,12 +160,14 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
     console.error('An error happened with the GLTF loader:', error);
     });
 
-    camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 20000 );
+    // camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 20000 );
+
+    const aspect = window.innerWidth / window.innerHeight;
+    camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 20000);
     renderer = new THREE.WebGLRenderer({antialias: true,alpha:true });
     renderer.setPixelRatio( window.devicePixelRatio );
     camera.aspect = window.innerWidth / window.innerHeight;
     renderer.setSize(window.innerWidth, window.innerHeight );
-    camera.fov = 20; // Adjust this value as needed
     camera.updateProjectionMatrix();
     document.body.appendChild( renderer.domElement );	
     renderer.xr.enabled = true;
