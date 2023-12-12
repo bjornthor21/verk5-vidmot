@@ -320,43 +320,42 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     model.position.copy( pos.toJSON())
                     model.quaternion.copy(quat.toJSON())
                 }
-                
+
                 const state = result.trackingState;
                 
-                if (state == "tracked") {
-                    // HighlightImage(imageIndex, pose1);
-                } else if (state == "emulated") {
-                    // FadeImage(imageIndex, pose1);
-                }
-
-
+                    if (state == "tracked") {
+                        HighlightImage(imageIndex, pose1);
+                    } else if (state == "emulated") {
+                        FadeImage(imageIndex, pose1);
+                    }
                 }
             }
 
             updateShootingDirection();
 
-              if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
-                  isShot = true;
-                  model.visible = true;
-              }
+            if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
+                isShot = true;
+                model.visible = true;
+            }
 
-              if(isShot) {
-                  model.position.add(velocity);
-                  model.rotation.x += 0.5;
-                  model.rotation.y += 0.5;
+            if(isShot) {
+                model.position.add(velocity);
+                model.rotation.x += 0.5;
+                model.rotation.y += 0.5;
 
                 if (results.gestures.length > 0) {
-                  let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
-                  let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
-                  controlPosition(handX, handY);
+                    let handX = parseFloat(results.landmarks[0][0].x.toFixed(2));
+                    let handY = parseFloat(results.landmarks[0][0].y.toFixed(2));
+                    controlPosition(handX, handY);
                 }
 
                 if(model.position.z >= 20 || model.position.z <= -20) {
                     model.visible = false;
                     isShot = false;
                 }
-              }
-            
+            }
+
+            renderer.render(scene, camera);
         } // if pose
 
     }
