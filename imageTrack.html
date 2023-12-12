@@ -286,12 +286,12 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     let pos = pose1.transform.position
                     let quat = pose1.transform.orientation
 
-                    if(!isShot){
+                    if(!isShot && gestureOutput.innerText == "Closed_Fist"){
                         model.visible = true;
                         model.position.copy( pos.toJSON())
                         model.quaternion.copy(quat.toJSON())
             
-                        if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
+                        if (model && gestureOutput.innerText == "Open_Palm") {
                             isShot = true;
                         }
                     }
@@ -300,7 +300,10 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
             updateShootingDirection();
 
-            if(isShot) {
+            renderer.render(scene, camera);
+        } // if pose
+
+        if(isShot) {
                 model.position.add(velocity);
                 model.rotation.x += 0.5;
                 model.rotation.y += 0.5;
@@ -316,10 +319,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     model.visible = false;
                 }
             }
-
-            renderer.render(scene, camera);
-        } // if pose
-
     }
     init()
     function onWindowResize() {
