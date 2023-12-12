@@ -23,6 +23,8 @@ Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarte
 Þetta er gert með [Mediapipe](https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer) fyrir handgreiningu og [three.js](https://threejs.org/) fyrir AR Renderingu, Image Tracking og animation.
 
 #### Image Tracking
+
+[Github Pages Demo](https://bjornthor21.github.io/verk5-vidmot/)
 Kóðinn fyrir Image Tracking í threejs fékk ég frá [Grae n](https://github.com/graemeniedermayer/ArExperiments) og hans verkefnum í AR.
 
 Hér er kóðinn fyrir Image Tracking frá Grae n: [html](https://github.com/graemeniedermayer/ArExperiments/blob/main/html/webxrMarker.html) og [Javascript](https://github.com/graemeniedermayer/ArExperiments/blob/main/javascript/webxrMarker.js)
