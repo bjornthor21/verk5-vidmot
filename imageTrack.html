@@ -65,7 +65,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         let shootDirection = new THREE.Vector3();
         let shootSpeed = 0.05;
         let velocity = shootDirection.multiplyScalar(shootSpeed);
-        
+
         const lateralMovementFactor = 0.5;
         const verticalMovementFactor = 0.5;
 
@@ -315,7 +315,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 let pos = pose1.transform.position
                 let quat = pose1.transform.orientation
 
-                if(!ishot){
+                if(!isShot){
                     model.position.copy( pos.toJSON())
                     model.quaternion.copy(quat.toJSON())
                 }
@@ -349,7 +349,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 }
 
                 if(model.position.z >= 20 || model.position.z <= -20) {
-                    model.visible = false;
                     isShot = false;
                 }
             }
