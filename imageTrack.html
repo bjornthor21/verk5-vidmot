@@ -316,8 +316,13 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                 let quat = pose1.transform.orientation
 
                 if(!isShot){
+                    model.visible = true;
                     model.position.copy( pos.toJSON())
                     model.quaternion.copy(quat.toJSON())
+        
+                    if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
+                        isShot = true;
+                    }
                 }
 
                 const state = result.trackingState;
@@ -332,11 +337,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
             updateShootingDirection();
 
-            if (model && gestureOutput.innerText == "Open_Palm" && !isShot) {
-                isShot = true;
-                model.visible = true;
-            }
-
             if(isShot) {
                 model.position.add(velocity);
                 model.rotation.x += 0.5;
@@ -350,6 +350,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
                 if(model.position.z >= 20 || model.position.z <= -20) {
                     isShot = false;
+                    model.visible = false;
                 }
             }
 
