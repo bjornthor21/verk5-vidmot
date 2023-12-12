@@ -54,6 +54,18 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
         let model;
         let isShot = false;
 
+        let modelScaleFactorX = 1.0; // This could be the width of your scene
+        let modelScaleFactorY = 1.0; // This could be the height of your scene
+
+        let minX = -5.0; // minimum x-coordinate
+        let maxX = 5.0;  // maximum x-coordinate
+        let minY = -5.0; // minimum y-coordinate
+        let maxY = 5.0;  // maximum y-coordinate
+
+        let shootDirection = new THREE.Vector3();
+        let shootSpeed = 0.05;
+        let velocity = shootDirection.multiplyScalar(shootSpeed);
+
         enableWebcamButton = document.getElementById('webcamButton');
 
         enableWebcamButton.addEventListener('click', () => {
@@ -252,7 +264,7 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
             });
     }
 
-    function positionModel(camera, model, distance) {
+        function positionModel(camera, model, distance) {
           let direction = new THREE.Vector3();
           camera.getWorldDirection(direction);
           let newPosition = new THREE.Vector3();
@@ -263,18 +275,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
         positionModel(camera, model, -0.05);
 
-
-        let modelScaleFactorX = 1.0; // This could be the width of your scene
-        let modelScaleFactorY = 1.0; // This could be the height of your scene
-
-        let minX = -5.0; // minimum x-coordinate
-        let maxX = 5.0;  // maximum x-coordinate
-        let minY = -5.0; // minimum y-coordinate
-        let maxY = 5.0;  // maximum y-coordinate
-
-        let shootDirection = new THREE.Vector3();
-        let shootSpeed = 0.05;
-        let velocity = shootDirection.multiplyScalar(shootSpeed);
 
         const lateralMovementFactor = 0.5;
         const verticalMovementFactor = 0.5;
