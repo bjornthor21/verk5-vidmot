@@ -252,12 +252,8 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
     }
 
         function controlPosition(handX, handY) {
-    
-          let xOffset = (0.5 - handX) * 2 * lateralMovementFactor;
-          let yOffset = (0.5 - handY) * 2 * verticalMovementFactor;
-
-
-    
+            let xOffset = (0.5 - handX) * 2 * lateralMovementFactor;
+            let yOffset = (0.5 - handY) * 2 * verticalMovementFactor;
             model.position.x += xOffset;
             model.position.y += yOffset;
         }
@@ -280,10 +276,8 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                             viewport.width, viewport.height);
                 const results = frame.getImageTrackingResults();
                 for (const result of results) {
-                    // The result's index is the image's position in the trackedImages array specified at session creation
                     const imageIndex = result.index;
                     
-                    // Get the pose of the image relative to a reference space.
                     const pose1 = frame.getPose(result.imageSpace, xrRefSpace);
                     pos = pose1.transform.position
                     quat = pose1.transform.orientation
@@ -292,19 +286,25 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
             }
 
             updateShootingDirection();
-
+            
+            // ef módel er til og því hefur ekki verið skotið þá fer það á staðsetningu myndar
             if(model && !isShot){
+                // birtist þegar hnefi er krepptur
                 if(gestureOutput.innerText == "Closed_Fist"){
                     model.visible = true;
                 }
                 model.position.copy( pos.toJSON())
                 model.quaternion.copy(quat.toJSON())
+
+                // ef lófinn er opnaður þá skýst model
                 if (model && gestureOutput.innerText == "Open_Palm") {
                     isShot = true;
                 }
             }
 
             if(isShot) {
+                // velocity er ákveðinn hraði í ákveðna átt
+                // áttin er sú átt sem myndavélinn snýr að
                 model.position.add(velocity);
                 model.rotation.x += 0.5;
                 model.rotation.y += 0.5;
@@ -315,14 +315,14 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
                     controlPosition(handX, handY);
                 }
 
-                if(model.position.z >= 20 || model.position.z <= -20) {
+                if(model.position.z >= 40 || model.position.z <= -40) {
                     isShot = false;
                     model.visible = false;
                 }
             }
 
             renderer.render(scene, camera);
-        } // if pose
+        }
     init()
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
