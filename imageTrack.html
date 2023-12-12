@@ -148,11 +148,17 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
 
     loader.load("https://bjornthor21.github.io/verk5-vidmot/fireball.glb", function(gltf) {
         model = gltf.scene;
+        // hér er ég að breyta Material Model til að reyna minnka álag á síma.
+        model.traverse(function(child) {
+            if (child.isMesh) {
+                child.material = new THREE.MeshBasicMaterial({ color: child.material.color });
+            }
+        });
         model.scale.set(0.01, 0.01, 0.01);
         model.visible = true;
         scene.add(model);
     }, undefined, function(error) {
-    console.error('An error happened with the GLTF loader:', error);
+        console.error('An error happened with the GLTF loader:', error);
     });
 
     let ambient = new THREE.AmbientLight( 0x222222 );
