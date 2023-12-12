@@ -12,7 +12,9 @@
 
 Hér má sjá [Video](https://youtu.be/JaiFbfYU-Lw) af tilraun með sviflusjá. Sveiflusjáin þurfti að vera analog túbu sjá. með 2 inngöngum fyrir X og Y. Eftir þó nokkra leit fann ég mann sem gat lánað mér svoleiðis.
 
-Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarter Every Day" sem kynnir sér þetta og talar við höfundana af [OsciStudio](https://oscilloscopemusic.com/software/oscistudio/)
+Forritið sem notað er í að breyta 3D teikningu í hljóðtíðni er [OsciStudio](https://oscilloscopemusic.com/software/oscistudio/)
+
+Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarter Every Day" sem kynnir sér þetta og talar við höfundana af OsciStudio
 
 ---
 
