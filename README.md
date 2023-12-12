@@ -18,5 +18,23 @@ Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarte
 
 
 ## AR Fireball
-Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin sem skapaðist í samráði við kennara er að gera hálfgert spil þar sem AR
+[Github Pages Demo](https://bjornthor21.github.io/verk5-vidmot/)
+
+Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin er að getað komið AR "Fireball" fyrir á spil og síðan kastað honum og stjórnað honum með handahreyfingum. 
+
+Þetta er gert með [Mediapipe](https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer) fyrir handgreiningu og [three.js](https://threejs.org/) fyrir AR Renderingu, Image Tracking og animation.
+
+### ATH!!!: til að fá Image Tracking til að virka þarf að fara inná [chrome://flags/](chrome://flags/) í síma og leita af WebXR Incubations og enable-a það.Sjá [Video](https://youtu.be/9LwTDKWC9G0?si=YVLsu_JO_gTwyd21&t=77) frá Grae n 
+
+#### Image Tracking
+Kóðinn fyrir Image Tracking í threejs fékk ég frá [Grae n](https://github.com/graemeniedermayer/ArExperiments) og hans verkefnum í AR.
+
+Hér er kóðinn fyrir Image Tracking frá Grae n: [html](https://github.com/graemeniedermayer/ArExperiments/blob/main/html/webxrMarker.html) og [Javascript](https://github.com/graemeniedermayer/ArExperiments/blob/main/javascript/webxrMarker.js)
+
+#### Notkunar Leiðbeiningar
+Stundum er þetta smá leiðinlegt en þegar komið er á vefsíðu og ýta á takkan ætti Ar umhverfi að birtast. Ekki er lengur þörf á að ýta 2 sinnum á takkan.
+Eftir að búið er að koma upp AR umhverfinu og myndavélin byrjuð að sýna frá sér. beina myndavél að mynd. gera krepptan hnefa og þá birtist Fireball. Svo getur þú skotið með því að opna lófan. Þá skýst hluturinn af stað og á meðan hann er í loftinu þá geturu fært hendina til að stjórna boltanum.
+
+
+
 
