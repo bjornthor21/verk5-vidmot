@@ -267,17 +267,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from 'https://cdn.js
             });
     }
 
-        function positionModel(camera, model, distance) {
-          let direction = new THREE.Vector3();
-          camera.getWorldDirection(direction);
-          let newPosition = new THREE.Vector3();
-          newPosition.copy(camera.position);
-          newPosition.add(direction.multiplyScalar(distance));
-          model.position.copy(newPosition);
-        }
-
-        positionModel(camera, model, -0.05);
-
         function controlPosition(handX, handY) {
     
           let xOffset = (0.5 - handX) * 2 * lateralMovementFactor;
