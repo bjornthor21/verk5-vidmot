@@ -12,6 +12,8 @@
 
 Hér má sjá [Video](https://youtu.be/JaiFbfYU-Lw) af tilraun minni með sveiflusjá. Sveiflusjáin þurfti að vera analog túbu sjá. með 2 inngöngum fyrir X og Y. Eftir þó nokkra leit fann ég mann sem gat lánað mér svoleiðis.
 
+Útkoman var fín. Mjög töff það er einhver bjögun sem á sér stað á leiðinni frá tölvunni í sjánna. Ástæðan fyrir því getur verið vegna takmarkaðs hljóðkorts í fartölvunni. lélegar tengingar á milli. Það er algengt að setja einhvern hágæða Audio amp á milli sem gæti lagað bjögun. Mér fannst þetta ganga mjög vel miðað við setup.
+
 Forritið sem notað er í að breyta 3D teikningu í hljóðtíðni er [OsciStudio](https://oscilloscopemusic.com/software/oscistudio/)
 
 Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarter Every Day" sem kynnir sér þetta og talar við höfundana af OsciStudio
