@@ -34,7 +34,7 @@ Hér er kóðinn fyrir Image Tracking frá Grae n: [html](https://github.com/gra
 hér má sjá hvernig myndir það er best að velja fyrir image tracking [Creating Good Markers](https://github.com/Carnaux/NFT-Marker-Creator/wiki/Creating-good-markers)
 
 ### Útkoma
-Þetta heppnaðist ansi vel það er afsjálfsögðu hægt að betrumbæta margt. Aðal gallinn er hve hægt þetta keyrir það er eitthvað sem ég reyndi að laga en gekk aldrei. sennilega er þetta síminn sem á erfitt með þetta. kannski skiljanlegt :). 
+Þetta heppnaðist ansi vel það er afsjálfsögðu hægt að betrumbæta margt. Aðal gallinn er hve hægt þetta keyrir það er eitthvað sem ég reyndi að laga en gekk aldrei. sennilega er þetta síminn sem á erfitt með þetta. kannski skiljanlegt :). Það væri hægt að leika sér endalaust við að bæta features á þetta. t.d Dýpt og láta boltan gefa frá sér ljós sem lýsir upp herbergið. Svo las ég um AR collision þar sem AR hlutur klessir á veggi og gólf í raunveruleikanum þetta er nú ekki ennþá komið.
 
 #### Notkunar Leiðbeiningar
 Stundum er þetta smá leiðinlegt en þegar komið er á vefsíðu og ýta á takkan ætti Ar umhverfi að birtast. Ekki er lengur þörf á að ýta 2 sinnum á takkan.
