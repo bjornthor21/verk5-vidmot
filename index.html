@@ -279,7 +279,7 @@
       updateShootingDirection();
             
       // ef módel er til og því hefur ekki verið skotið þá fer það á staðsetningu myndar
-      if(model && !isShot){
+      if(model && !isShot && pos != undefined){
         // birtist þegar hnefi er krepptur
         if(gestureOutput.innerText == "Closed_Fist"){
           model.visible = true;
