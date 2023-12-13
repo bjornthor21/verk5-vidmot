@@ -22,7 +22,7 @@ Hér er [Video](https://www.youtube.com/watch?v=4gibcRfp4zA&t=510s) frá "Smarte
 ## AR Fireball
 [Github Pages Demo](https://bjornthor21.github.io/verk5-vidmot/)
 
-Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin er að getað komið AR "Fireball" fyrir á spil og síðan kastað honum og stjórnað honum með handahreyfingum. 
+Í [Verkefni 4](https://github.com/bjornthor21/verk4-vidmot/) tókst mér að nota báðar myndavélar í síma til að stjórna AR hlut með handahreyfingum. User cameran er notuð til að greina handahreyfingar og Environment Cameran er notuð til að birta AR umhverfi. Í Þessu verkefni held ég áfram með það og innleiði image tracking. Hugmyndin er að getað komið AR "Fireball" fyrir á spil og síðan kastað honum og stjórnað honum með handahreyfingum. Sjá [Video]()
 
 Þetta er gert með [Mediapipe](https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer) fyrir handgreiningu og [three.js](https://threejs.org/) fyrir AR Renderingu, Image Tracking og animation.
 
